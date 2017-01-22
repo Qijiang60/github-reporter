@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Redirect from 'react-router/Redirect';
 import selectN from 'selectn';
-import { setToken } from '../actions/session';
+import { setToken } from '../../actions/session';
 
 const objectify = (str = '') => str.split(',').reduce((acc, item) => ({
   ...acc,
