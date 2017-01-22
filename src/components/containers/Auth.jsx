@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Redirect from 'react-router/Redirect';
+import RaisedButton from 'material-ui/RaisedButton';
 import { loggedInSelector } from '../../selectors/session';
 import { loadLocalToken } from '../../actions/session';
 
@@ -18,7 +19,7 @@ class Auth extends Component {
     }
     return (
       <div>
-        <a href={`${apiRoot}/api/authorize-github`}>Authorize</a>
+        <RaisedButton primary label="Authorize" href={`${apiRoot}/api/authorize-github`} />
       </div>
     );
   }
