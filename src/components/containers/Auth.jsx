@@ -4,6 +4,8 @@ import Redirect from 'react-router/Redirect';
 import { loggedInSelector } from '../../selectors/session';
 import { loadLocalToken } from '../../actions/session';
 
+const apiRoot = process.env.REACT_APP_API_URL || '';
+
 class Auth extends Component {
 
   componentDidMount() {
@@ -14,7 +16,11 @@ class Auth extends Component {
     if (this.props.loggedIn) {
       return <Redirect to="/" />
     }
-    return <div>Auth page</div>
+    return (
+      <div>
+        <a href={`${apiRoot}/api/authorize-github`}>Authorize</a>
+      </div>
+    );
   }
  
 }
