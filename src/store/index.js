@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { persistState } from 'redux-devtools';
-import rootReducer from '../reducers';
+import appReducer from '../reducers';
 import promiseMiddleware from './promise';
 
 const production = process.env.NODE_ENV === 'production';
@@ -16,6 +16,13 @@ const finalCreateStore = production ? compose(finalApplyMiddleware)(createStore)
     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )(createStore);
+
+const rootReducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    state = undefined;
+  }
+  return appReducer(state, action);
+}
 
 export default function (initialState) {
   const store = finalCreateStore(rootReducer, initialState);

@@ -3,6 +3,7 @@ import { auth } from './util';
 
 export const SET_TOKEN = 'SET_TOKEN';
 export const GET_USER = 'GET_USER';
+export const LOUGOUT = 'LOGOUT';
 
 export const setToken = payload => dispatch => {
   localStorage.setItem('token', JSON.stringify(payload));
@@ -28,3 +29,10 @@ export const getUser = () => (dispatch, getState) => dispatch({
   type: GET_USER,
   promise: getUserRequest(auth(getState())),
 });
+
+export const logout = () => dispatch => {
+  localStorage.clear();
+  return dispatch({
+    type: LOUGOUT,
+  });
+};
