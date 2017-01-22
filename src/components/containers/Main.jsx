@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Redirect from 'react-router/Redirect';
+import Navigation from '../navigation/Navigation';
 import { loggedInSelector } from '../../selectors/session';
 import { getUser } from '../../actions/session';
 
@@ -26,7 +27,9 @@ class Main extends Component {
     if (!this.props.loggedIn) {
       return <Redirect to="/auth" />;
     }
-    return <div>Main page</div>;
+    return (
+      <Navigation loggedIn />
+    );
   }
 
 }

@@ -3,6 +3,25 @@ body {
   margin: 0;
 }
 
+.app-bar-item {
+  margin-top: 0.6em;
+  margin-left: 0;
+}
+
+.app-bar-item:not(:last-child) {
+  margin-right: 0.5em;
+}
+
+.app-bar-link {
+  color: white;
+  padding-top: 0.8em;
+  margin-top: 0;
+}
+
+.app-bar-link:hover {
+  color: #FAFAFA;
+}
+
 .auth {
   width: 100%;
   max-width: 400px;
