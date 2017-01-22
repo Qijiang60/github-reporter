@@ -9,9 +9,10 @@ const sendError = ({ res, error, message, status = 400 }) => {
 }
 
 const githubHeaders = ({ req, token }) => ({
-  'Authorization': req ? req.get('Authorization') : token,
+  'Authorization': req ? req.headers.authorization : token,
   'Accept': 'application/vnd.github.v3+json',
   'Content-Type': 'application/json',
+  'User-Agent': process.env.APP_NAME || 'Github-Reporter',
 });
 
 const githubAuth = endpoint => `https://github.com/login/oauth/${endpoint}`;
