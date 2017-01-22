@@ -1,10 +1,11 @@
 const request = require('request');
 const qs = require('qs');
-const { sendJsonResponse, sendError, githubHeaders, githubAuth, githubApi } = require('./util');
+const { sendError, githubAuth } = require('./util');
 
 const client_id = process.env.GH_CLIENT_ID;
 const client_secret = process.env.GH_CLIENT_SECRET;
 const redirect_uri = process.env.GH_REDIRECT_URI;
+const clientRoot = process.env.CLIENT_ROOT || '';
 
 const githubAuthRedirect = (req, res) => {
   const params = qs.stringify({
@@ -14,6 +15,16 @@ const githubAuthRedirect = (req, res) => {
   });
   res.redirect(githubAuth(`/authorize/?${params}`));
   res.end();
+};
+
+const sendRequestResponse = res => (error, response, body) => {
+  if (error) {
+    return sendError({ res, error, message: 'Error getting token' });
+  }
+  if (response.statusCode !== 200) {
+    return sendError({ res, message: 'Error getting token', status: response.statusCode });
+  }
+  res.redirect(`${clientRoot}/token/${body.access_token}/${body.scope}`);
 };
 
 const githubCallback = (req, res) => {
@@ -27,18 +38,7 @@ const githubCallback = (req, res) => {
       code: req.query.code,
       redirect_uri,
     },
-  }, (error, response, body) => {
-    if (error) {
-      return sendError({ res, error, message: 'Error getting token' });
-    }
-    if (response.statusCode !== 200) {
-      return sendError({ res, message: 'Error getting token', status: response.statusCode });
-    }
-    const token = body.access_token;
-    sendJsonResponse({ res, status: 200, content: { token } });
-    // get user data for account creation
-    // res.redirect - route with /:token param to capture and store token
-  });
+  }, sendRequestResponse(res));
 };
 
 module.exports = {
