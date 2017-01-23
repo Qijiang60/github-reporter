@@ -17,7 +17,7 @@ const githubHeaders = ({ req, token }) => ({
 
 const githubAuth = endpoint => `https://github.com/login/oauth/${endpoint}`;
 
-const githubApi = endpoint => `https://api.github.com/${endpoint}`;
+const githubApi = path => `https://api.github.com/${path}`;
 
 module.exports = {
   sendJsonResponse,

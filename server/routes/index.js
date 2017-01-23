@@ -10,6 +10,6 @@ router.get('/gh_callback', githubCallback);
 
 /* Github API Routes - passthrough */
 
-router.get('/github/:endpoint', apiRequest);
+router.get('/github/*', apiRequest);
 
 module.exports = router;

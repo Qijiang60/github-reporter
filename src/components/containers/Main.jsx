@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import Redirect from 'react-router/Redirect';
 import Navigation from '../navigation/Navigation';
 import { loggedInSelector } from '../../selectors/session';
-import { getUser } from '../../actions/session';
+import { getUser, getRepos } from '../../actions/session';
 
 class Main extends Component {
+
+  state = {
+    userFetched: false,
+  }
 
   componentDidMount() {
     this.getUser(this.props);
@@ -18,8 +22,12 @@ class Main extends Component {
   }
 
   getUser = props => {
-    if (props.loggedIn && !props.userFetched) {
+    if (props.loggedIn && !props.userFetched && !this.state.userFetched) {
       props.getUser();
+      props.getRepos();
+      this.setState({
+        userFetched: true,
+      });
     }
   }
  
@@ -34,4 +42,4 @@ class Main extends Component {
 
 }
 
-export default connect(loggedInSelector, { getUser })(Main);
+export default connect(loggedInSelector, { getUser, getRepos })(Main);

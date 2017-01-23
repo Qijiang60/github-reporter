@@ -13,8 +13,9 @@ const sendApiResponse = res => (error, response, body) => {
 };
 
 const apiRequest = (req, res) => {
+  console.log('path', req.path);
   request({
-    uri: githubApi(req.params.endpoint),
+    uri: githubApi(req.path.split('/github/')[1]),
     headers: githubHeaders({ req }),
     method: 'GET',
   }, sendApiResponse(res));
