@@ -1,4 +1,5 @@
 const request = require('request');
+const qs = require('qs');
 const { sendError, githubApi, githubHeaders, sendJsonResponse } = require('./util');
 const errorMessage = 'Error retrieving data from GitHub';
 
@@ -13,12 +14,14 @@ const sendApiResponse = res => (error, response, body) => {
 };
 
 const apiRequest = (req, res) => {
-  console.log('path', req.path);
-  request({
-    uri: githubApi(req.path.split('/github/')[1]),
+  const endpoint = req.path.split('/github/')[1];
+  const query = Object.values(req.query).length > 0 ? `?${qs.stringify(req.query)}` : '';
+  const requestOptions = {
+    uri: githubApi(`${endpoint}${query}`),
     headers: githubHeaders({ req }),
     method: 'GET',
-  }, sendApiResponse(res));
+  };
+  request(requestOptions, sendApiResponse(res));
 };
 
 module.exports = {

@@ -10,6 +10,8 @@ export const LOUGOUT = 'LOGOUT';
 
 const isValidResponse = response => response && Array.isArray(response) && response.length > 0;
 
+const parseIssuesUrl = (url = '') => `/api/github/${(url.split('.com/')[1]).split('{')[0]}?state=all`;
+
 export const setToken = payload => dispatch => {
   localStorage.setItem('token', JSON.stringify(payload));
   return dispatch({
@@ -54,11 +56,11 @@ export const getRepos = () => (dispatch, getState) => {
             repo.issues_url && repo.has_issues && dispatch({
               id: repo.id,
               type: GET_ISSUES,
-              promise: getRequest(`${repo.issues_url.split('{')[0]}?state=all`)(options),
+              promise: getRequest(parseIssuesUrl(repo.issues_url))(options),
             })
-          )
+          );
         }
-      })
+      }),
   });
 };
 
