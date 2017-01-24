@@ -3,6 +3,18 @@ body {
   margin: 0;
 }
 
+.paper-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.paper-item {
+  padding: 1em;
+  width: 100%;
+}
+
 .app-bar-item {
   margin-top: 0.6em;
   margin-left: 0;
@@ -30,4 +42,10 @@ body {
 
 .explanation {
   margin-bottom: 1em;
+}
+
+@media (min-width: 750px) {
+  .paper-item {
+    width: 50%;
+  }
 }

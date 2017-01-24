@@ -1,14 +1,14 @@
 const promiseMiddleware = ({ dispatch, getState }) => next => action => {
-  const { promise, ...rest } = action;
+  const { promise, manualSuccessDispatch, ...rest } = action;
   if (!promise) {
     return next(action);
   }
   next({ ...rest, status: 'send-request' });
   return promise.then(
-    result => {
+    (result = {}) => {
       if (result.error) {
         return next({ ...rest, result, error: result.error, status: 'failure' });
-      } else {
+      } else if (!manualSuccessDispatch) {
         return next({ ...rest, result, status: 'success' });
       }
     },

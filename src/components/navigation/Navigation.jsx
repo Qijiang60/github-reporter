@@ -14,7 +14,7 @@ const Navigation = ({ loggedIn }) => {
   }
   return (
     <AppBar {...basic}>
-      <AppBarLink to="/reports" label="Reports" />
+      <AppBarLink to="/repos" label="Repos" />
       <AppBarLink to="/settings" label="Settings" />
       <AccountMenu />
     </AppBar>
