@@ -27,9 +27,6 @@ const csvFields = [{
 }, {
   name: 'labels',
   label: 'Labels',
-}, {
-  name: 'url',
-  label: 'Link',
 }];
 
 const today = moment().format('MM-DD-YYYY');
