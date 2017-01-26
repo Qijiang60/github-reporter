@@ -8,7 +8,7 @@ const { githubHeaders } = require('./util');
 
 const csvFields = [{
   name: 'title',
-  label: 'Work Item',
+  label: 'Title',
 }, {
   name: 'created',
   label: 'Created',
@@ -50,7 +50,7 @@ const processIssues = res => (error, response, body) => {
       fields: csvFields,
     }, (err, output) => {
       if (!err) {
-        res.attachment(fileName)
+        res.attachment(fileName);
         res.send(output);
       }
       else { console.log('CSV conversion error', err); }
@@ -67,7 +67,7 @@ const exportIssues = (req, res) => {
   }
   const requestOptions = {
     uri: req.query.issuesUrl,
-    headers: githubHeaders({ req }),
+    headers: githubHeaders({ token: `Bearer ${req.query.token}` }),
     method: 'GET',
   };
   request(requestOptions, processIssues(res));

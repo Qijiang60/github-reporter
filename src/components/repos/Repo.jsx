@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import { exportIssues } from '../../actions/export';
 
-const Repo = ({ name, description, url, open_issues, issues = [], exportAction, issues_url }) => (
+const exportUrl = (token, issuesUrl) =>
+  `/api/export/issues/?token=${token}&issuesUrl=${issuesUrl.split('{')[0]}?state=all`
+
+const Repo = ({ name, description, url, open_issues, issues = [], issues_url, token }) => (
   <Paper className="paper-item">
   <Card>
     <CardTitle title={name} subtitle={description} />
@@ -18,16 +20,20 @@ const Repo = ({ name, description, url, open_issues, issues = [], exportAction, 
     </CardText>
     <CardActions>
       <FlatButton
+        href={exportUrl(token, issues_url)}
+        disabled={issues.length < 1}
+        download
         primary
-        label="Export Issues"
-        onClick={() => exportAction(`${issues_url.split('{')[0]}?state=all`)}
+        label={issues.length > 0 ? 'Export Issues' : 'No Issues to Export'}
       />
     </CardActions>
   </Card></Paper>
 );
 
-const mapStateToProps = ({ issues }, { id }) => ({
+const mapStateToProps = ({ issues, session }, { id }) => ({
+  // TODO: - move this up to Repos so they can be sorted by total issues
   issues: issues[id],
+  token: session.token,
 });
 
-export default connect(mapStateToProps, { exportAction: exportIssues })(Repo);
+export default connect(mapStateToProps)(Repo);
