@@ -4,8 +4,8 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 
-const exportUrl = (token, issuesUrl) =>
-  `/api/export/issues/?token=${token}&issuesUrl=${issuesUrl.split('{')[0]}?state=all`
+const exportUrl = (token, issuesUrl, name) =>
+  `/api/export/issues/?token=${token}&name=${name}&issuesUrl=${issuesUrl.split('{')[0]}`
 
 const Repo = ({ name, description, url, open_issues, issues = [], issues_url, token }) => (
   <Paper className="paper-item">
@@ -20,7 +20,7 @@ const Repo = ({ name, description, url, open_issues, issues = [], issues_url, to
     </CardText>
     <CardActions>
       <FlatButton
-        href={exportUrl(token, issues_url)}
+        href={exportUrl(token, issues_url, name)}
         disabled={issues.length < 1}
         download
         primary

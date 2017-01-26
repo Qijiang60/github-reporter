@@ -10,39 +10,44 @@ const csvFields = [{
   name: 'title',
   label: 'Title',
 }, {
+  name: 'number',
+  label: 'Issue Number',
+}, {
   name: 'created',
   label: 'Created',
 }, {
-  name: 'currentStatus',
-  label: 'Status',
+  name: 'updated',
+  label: 'Last Updated',
+}, {
+  name: 'state',
+  label: 'State',
 }, {
   name: 'description',
   label: 'Description',
+}, {
+  name: 'labels',
+  label: 'Labels',
+}, {
+  name: 'url',
+  label: 'Link',
 }];
 
 const today = moment().format('MM-DD-YYYY');
-const fileName = `Github Export ${today}.csv`;
 
 const formatDate = date => date && moment(date).format('MM/DD/YYYY');
 
 const truncateDescription = body => body.split('\r')[0];
 
-const mapIssues = (issues = []) => issues.map(issue => {
-  issue.created = formatDate(issue['created_at']);
-  issue.updated = formatDate(issue['updated_at']);
-  issue.currentStatus = issue['closed_at'] ? 'Closed' : 'Open';
-  issue.description = truncateDescription(issue.body);
-  return issue;
-});
+const mapIssues = (issues = []) => issues.map(issue => Object.assign(issue, {
+  created: formatDate(issue['created_at']),
+  updated: formatDate(issue['updated_at']),
+  description: truncateDescription(issue.body),
+  labels: issue.labels.map(label => label.name).join(', '),
+}));
 
-const sortByStatus = (issues = []) =>
-  issues.sort((a, b) =>
-    a && b && b.currentStatus.localeCompare(a.currentStatus));
-
-const processIssues = res => (error, response, body) => {
+const processIssues = (res, repoName) => (error, response, body) => {
   if (!error && response.statusCode < 400) {
     const issues = compose(
-      sortByStatus,
       mapIssues,
       JSON.parse
     )(body);
@@ -50,6 +55,7 @@ const processIssues = res => (error, response, body) => {
       fields: csvFields,
     }, (err, output) => {
       if (!err) {
+        const fileName = `${repoName} export ${today}.csv`
         res.attachment(fileName);
         res.send(output);
       }
@@ -70,7 +76,7 @@ const exportIssues = (req, res) => {
     headers: githubHeaders({ token: `Bearer ${req.query.token}` }),
     method: 'GET',
   };
-  request(requestOptions, processIssues(res));
+  request(requestOptions, processIssues(res, req.query.name));
 }
 
 module.exports = {
