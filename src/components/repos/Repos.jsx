@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { List } from 'material-ui/List';
 import Repo from './Repo';
 
 const mergeIssues = (repos, issues) => repos.map(repo => ({
@@ -10,14 +11,15 @@ const mergeIssues = (repos, issues) => repos.map(repo => ({
 
 const sortByIssues = repos => repos.sort((a = {}, b = {}) => b.issues.length - a.issues.length);
 
-const renderRepos = repos => repos.map(repo => <Repo {...repo} key={repo.id} />);
+const renderRepos = repos => repos.map((repo, i, arr) =>
+  <Repo {...repo} key={repo.id} last={arr.length === (i + 1)} />);
 
 const repositories = compose(renderRepos, sortByIssues, mergeIssues);
 
 const Repos = ({ repos = [], issues = [] }) => (
-  <div className="paper-container">
+  <List>
     {repositories(repos, issues)}
-  </div>
+  </List>
 );
 
 const mapStateToProps = ({ session, issues }) => ({
