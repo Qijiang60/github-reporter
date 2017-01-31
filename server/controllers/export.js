@@ -1,56 +1,32 @@
 const request = require('request');
 const jsonCSV = require('json-csv');
 const moment = require('moment');
-const { compose } = require('redux');
-const { sendJsonResponse } = require('./util'); 
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const { sendJsonResponse, sendError } = require('./util'); 
 
 const { githubHeaders } = require('./util');
 
-const csvFields = [{
-  name: 'title',
-  label: 'Title',
-}, {
-  name: 'number',
-  label: 'Issue Number',
-}, {
-  name: 'created',
-  label: 'Created',
-}, {
-  name: 'updated',
-  label: 'Last Updated',
-}, {
-  name: 'state',
-  label: 'State',
-}, {
-  name: 'description',
-  label: 'Description',
-}, {
-  name: 'labels',
-  label: 'Labels',
-}];
+const onlyEnabled = fields => fields.filter(({ enabled }) => enabled);
 
-const today = moment().format('MM-DD-YYYY');
+const mapIssues = (user, issues = []) => {
+  const { dateFormat, fields } = user.exportSettings;
+  const truncateBody = fields.find(({ name }) => name === 'body').truncate;
+  const formatDate = date => moment(date).format(dateFormat);
+  return issues.map(issue => Object.assign({}, issue, {
+    created: formatDate(issue.created_at),
+    updated: formatDate(issue.updated_at),
+    body: truncateBody ? issue.body.split('\r')[0] : issue.body,
+    labels: issue.labels.map(label => label.name).join(', '),
+  }));
+}
 
-const formatDate = date => date && moment(date).format('MM/DD/YYYY');
-
-const truncateDescription = body => body.split('\r')[0];
-
-const mapIssues = (issues = []) => issues.map(issue => Object.assign(issue, {
-  created: formatDate(issue['created_at']),
-  updated: formatDate(issue['updated_at']),
-  description: truncateDescription(issue.body),
-  labels: issue.labels.map(label => label.name).join(', '),
-}));
-
-const processIssues = (res, repoName) => (error, response, body) => {
+const processIssues = (res, repoName, user) => (error, response, body) => {
   if (!error && response.statusCode < 400) {
-    const issues = compose(
-      mapIssues,
-      JSON.parse
-    )(body);
-    jsonCSV.csvBuffered(issues, {
-      fields: csvFields,
-    }, (err, output) => {
+    const today = moment().format(user.exportSettings.dateFormat.replace(/\//g, '-'));
+    const issues = mapIssues(user, JSON.parse(body));
+    const fields = onlyEnabled(user.exportSettings.fields);
+    jsonCSV.csvBuffered(issues, { fields }, (err, output) => {
       if (!err) {
         const fileName = `${repoName} export ${today}.csv`
         res.attachment(fileName);
@@ -68,12 +44,15 @@ const exportIssues = (req, res) => {
       error: { message: 'Please include an issues URL' } },
     });
   }
-  const requestOptions = {
-    uri: req.query.issuesUrl,
-    headers: githubHeaders({ token: `Bearer ${req.query.token}` }),
-    method: 'GET',
-  };
-  request(requestOptions, processIssues(res, req.query.name));
+  User.findOne({ githubId: req.query.githubId }, (err, user) => {
+    if (err) { return sendError({ res, error: err, status: 404 }); }
+    const requestOptions = {
+      uri: req.query.issuesUrl,
+      headers: githubHeaders({ token: `Bearer ${req.query.token}` }),
+      method: 'GET',
+    };
+    request(requestOptions, processIssues(res, req.query.name, user));
+  });
 }
 
 module.exports = {
