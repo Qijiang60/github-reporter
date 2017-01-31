@@ -1,5 +1,6 @@
 const request = require('request');
 const jsonCSV = require('json-csv');
+const qs = require('qs');
 const moment = require('moment');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
@@ -8,6 +9,13 @@ const { sendJsonResponse, sendError } = require('./util');
 const { githubHeaders } = require('./util');
 
 const onlyEnabled = fields => fields.filter(({ enabled }) => enabled);
+
+const issuesQuery = ({ state, labels = [], since = {} }) => qs.stringify({
+  filter: 'all',
+  state,
+  labels: labels.join(','),
+  since: moment().subtract(since.quantity, since.unit).format(),
+});
 
 const mapIssues = (user, issues = []) => {
   const { dateFormat, fields } = user.exportSettings;
@@ -47,7 +55,7 @@ const exportIssues = (req, res) => {
   User.findOne({ githubId: req.query.githubId }, (err, user) => {
     if (err) { return sendError({ res, error: err, status: 404 }); }
     const requestOptions = {
-      uri: req.query.issuesUrl,
+      uri: `${req.query.issuesUrl}?${issuesQuery(user.exportSettings.query)}`,
       headers: githubHeaders({ token: `Bearer ${req.query.token}` }),
       method: 'GET',
     };
