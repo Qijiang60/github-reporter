@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Redirect from 'react-router/Redirect';
+import Redirect from 'react-router-dom/Redirect';
 import Navigation from '../navigation/Navigation';
 import { loggedInSelector } from '../../selectors/session';
 import { getUser, getRepos } from '../../actions/session';

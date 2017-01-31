@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Redirect from 'react-router/Redirect';
+import Redirect from 'react-router-dom/Redirect';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import Navigation from '../navigation/Navigation';

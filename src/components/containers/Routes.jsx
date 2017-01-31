@@ -1,5 +1,5 @@
 import React from 'react';
-import Match from 'react-router/Match';
+import Route from 'react-router-dom/Route';
 import Auth from './Auth';
 import Main from './Main';
 import Token from './Token';
@@ -8,12 +8,12 @@ import Settings from '../pages/Settings';
 
 const Routes = () => (
   <div>
-    <Match pattern="/token/:token/:scope" component={Token} exactly />
-    <Match pattern="/auth" exactly component={Auth} />
-    <Match pattern="*" component={Main} />
-    <Match pattern="/" exactly component={Repos} />
-    <Match pattern="/repos" exactly component={Repos} />
-    <Match pattern="/settings" exactly component={Settings} />
+    <Route path="/token/:token/:scope" component={Token} exactly />
+    <Route path="/auth" exactly component={Auth} />
+    <Route path="*" component={Main} />
+    <Route path="/" exactly component={Repos} />
+    <Route path="/repos" exactly component={Repos} />
+    <Route path="/settings" exactly component={Settings} />
   </div>
 );
 
