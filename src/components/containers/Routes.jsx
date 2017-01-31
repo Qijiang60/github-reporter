@@ -9,11 +9,11 @@ import Settings from '../pages/Settings';
 const Routes = () => (
   <div>
     <Route path="/token/:token/:scope" component={Token} exactly />
-    <Route path="/auth" exactly component={Auth} />
+    <Route path="/auth" exact component={Auth} />
     <Route path="*" component={Main} />
-    <Route path="/" exactly component={Repos} />
-    <Route path="/repos" exactly component={Repos} />
-    <Route path="/settings" exactly component={Settings} />
+    <Route path="/" exact component={Repos} />
+    <Route path="/repos" exact component={Repos} />
+    <Route path="/settings" exact component={Settings} />
   </div>
 );
 
