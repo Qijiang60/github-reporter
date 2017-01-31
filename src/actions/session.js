@@ -64,9 +64,6 @@ export const getRepos = () => (dispatch, getState) => {
   });
 };
 
-
-apiAction(GET_REPOS, getReposRequest);
-
 export const logout = () => dispatch => {
   localStorage.clear();
   return dispatch({

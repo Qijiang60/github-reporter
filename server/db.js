@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = `mongodb://${process.env.DB_URI || 'localhost/exampleDB'}`;
+const dbURI = `mongodb://${process.env.DB_URI || 'localhost/ghrDB'}`;
 
 console.log(`database URI: ${dbURI}`);
 
@@ -43,3 +43,4 @@ process.on('SIGTERM', function() {
 });
 
 // Require models
+require('./models/User');

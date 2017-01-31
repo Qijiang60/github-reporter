@@ -9,25 +9,26 @@ const exportUrl = (token, issuesUrl, name) =>
 
 const Repo = ({ name, description, url, open_issues, issues = [], issues_url, token }) => (
   <Paper className="paper-item">
-  <Card>
-    <CardTitle title={name} subtitle={description} />
-    <CardText>
-      <strong>Repo Data:</strong>
-      <div style={{ marginLeft: '1em', marginTop: '1em' }}>
-        {open_issues} open issues<br />
-        {issues.length} total issues
-      </div>
-    </CardText>
-    <CardActions>
-      <FlatButton
-        href={exportUrl(token, issues_url, name)}
-        disabled={issues.length < 1}
-        download
-        primary
-        label={issues.length > 0 ? 'Export Issues' : 'No Issues to Export'}
-      />
-    </CardActions>
-  </Card></Paper>
+    <Card>
+      <CardTitle title={name} subtitle={description} />
+      <CardText>
+        <strong>Repo Data:</strong>
+        <div style={{ marginLeft: '1em', marginTop: '1em' }}>
+          {open_issues} open issues<br />
+          {issues.length} total issues
+        </div>
+      </CardText>
+      <CardActions>
+        <FlatButton
+          href={exportUrl(token, issues_url, name)}
+          disabled={issues.length < 1}
+          download
+          primary
+          label={issues.length > 0 ? 'Export Issues' : 'No Issues to Export'}
+        />
+      </CardActions>
+    </Card>
+  </Paper>
 );
 
 const mapStateToProps = ({ issues, session }, { id }) => ({
