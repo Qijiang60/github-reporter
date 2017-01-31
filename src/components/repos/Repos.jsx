@@ -1,17 +1,28 @@
 import React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Repo from './Repo';
 
-const sortByOpenIssues = repos => repos.sort((a = {}, b = {}) => b.open_issues - a.open_issues);
+const mergeIssues = (repos, issues) => repos.map(repo => ({
+  ...repo,
+  issues: issues[repo.id] || [],
+}));
 
-const Repos = ({ repos = [] }) => (
+const sortByIssues = repos => repos.sort((a = {}, b = {}) => b.issues.length - a.issues.length);
+
+const renderRepos = repos => repos.map(repo => <Repo {...repo} key={repo.id} />);
+
+const repositories = compose(renderRepos, sortByIssues, mergeIssues);
+
+const Repos = ({ repos = [], issues = [] }) => (
   <div className="paper-container">
-    {sortByOpenIssues(repos).map(repo => <Repo {...repo} key={repo.id} />)}
+    {repositories(repos, issues)}
   </div>
 );
 
-const mapStateToProps = ({ session }) => ({
+const mapStateToProps = ({ session, issues }) => ({
   repos: session.repos,
+  issues,
 });
 
 export default connect(mapStateToProps)(Repos);

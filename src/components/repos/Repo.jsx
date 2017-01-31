@@ -34,9 +34,8 @@ const Repo =
   </Paper>
 );
 
-const mapStateToProps = ({ issues, session }, { id }) => ({
+const mapStateToProps = ({ session }) => ({
   // TODO: - move this up to Repos so they can be sorted by total issues
-  issues: issues[id],
   token: session.token,
   githubId: session.user.id,
 });

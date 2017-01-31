@@ -10,7 +10,8 @@ export const LOUGOUT = 'LOGOUT';
 
 const isValidResponse = response => response && Array.isArray(response) && response.length > 0;
 
-const parseIssuesUrl = (url = '') => `/api/github/${(url.split('.com/')[1]).split('{')[0]}?state=all`;
+const parseIssuesUrl = (url = '') =>
+  `/api/github/${(url.split('.com/')[1]).split('{')[0]}?state=all&filter=all`;
 
 export const setToken = payload => dispatch => {
   localStorage.setItem('token', JSON.stringify(payload));

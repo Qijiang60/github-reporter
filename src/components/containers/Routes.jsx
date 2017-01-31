@@ -11,7 +11,7 @@ const Routes = () => (
     <Match pattern="/token/:token/:scope" component={Token} exactly />
     <Match pattern="/auth" exactly component={Auth} />
     <Match pattern="*" component={Main} />
-    <Match pattern="/" component={Repos} />
+    <Match pattern="/" exactly component={Repos} />
     <Match pattern="/repos" exactly component={Repos} />
     <Match pattern="/settings" exactly component={Settings} />
   </div>
