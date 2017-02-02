@@ -1,31 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import selectN from 'selectn';
-
-const TextInput = ({ input, label, meta, ...rest }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    {...input}
-    {...rest}
-  />
-);
+import { SelectInput, selectOptions } from './Inputs';
+import settingsOptions from './settingsOptions';
 
 const Settings = ({ exportSettings }) => {
   const SettingsForm = ({ handleSubmit, pristine, reset, submitting }) => (
-    <form onSubmit={handleSubmit}>
-      <Field
-        name="query.state"
-        component={TextInput}
-        label="Query State"
-      />
-    </form>
+    <div style={{ paddingTop: '1em', paddingLeft: '1em', paddingRight: '1em' }}>
+      <form onSubmit={handleSubmit}>
+        <Field name="dateFormat" component={SelectInput} label="Date Format" fullWidth>
+          {selectOptions(settingsOptions.dateFormat)}
+        </Field>
+        <Field name="query.state" component={SelectInput} label="Issue State" fullWidth>
+          {selectOptions(settingsOptions.query.state)}
+        </Field>
+      </form>
+    </div>
   );
   const ConnectedSettingsForm = reduxForm({
     form: 'settings',
@@ -39,13 +30,3 @@ const mapStateToProps = ({ session }) => ({
 });
 
 export default connect(mapStateToProps)(Settings);
-
-const Select = ({ input, label, meta, children, ...rest }) => (
-  <SelectField
-    floatingLabelText={label}
-    {...input}
-    onChange={(event, index, value) => input.onChange(value)}
-    children={children}
-    {...rest}
-  />
-);
