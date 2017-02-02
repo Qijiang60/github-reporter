@@ -4,7 +4,7 @@ import Auth from './Auth';
 import Main from './Main';
 import Token from './Token';
 import Repos from '../repos/Repos';
-import Settings from '../pages/Settings';
+import Settings from '../settings/Settings';
 
 const Routes = () => (
   <div>
