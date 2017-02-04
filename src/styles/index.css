@@ -44,8 +44,19 @@ body {
   margin-bottom: 1em;
 }
 
-@media (min-width: 750px) {
+.two-column-row {
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
   .paper-item {
     width: 50%;
+  }
+  .half-width {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    padding-left: 1%;
+    padding-right: 1%;
   }
 }

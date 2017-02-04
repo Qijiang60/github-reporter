@@ -17,9 +17,14 @@ const renderRepos = repos => repos.map((repo, i, arr) =>
 const repositories = compose(renderRepos, sortByIssues, mergeIssues);
 
 const Repos = ({ repos = [], issues = [] }) => (
-  <List>
-    {repositories(repos, issues)}
-  </List>
+  <div>
+    <h1 style={{ paddingLeft: '0.5em', paddingRight: '0.5em' }}>
+      Respositories <small style={{ color: '#AAA' }}>Click to export CSV</small>
+    </h1>
+    <List>
+      {repositories(repos, issues)}
+    </List>
+  </div>
 );
 
 const mapStateToProps = ({ session, issues }) => ({

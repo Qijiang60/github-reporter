@@ -13,20 +13,12 @@ const settingsOptions = {
     ),
   })),
   query: {
-    state: [{
-      value: 'open',
-      label: 'Open',
-    }, {
-      value: 'closed',
-      label: 'Closed',
-    }, {
-      value: 'all',
-      label: 'All',
-    }],
+    state: ['open', 'closed', 'all'],
     since: {
       unit: ['days', 'weeks', 'months', 'years'],
     },
   },
+  fields: ['title', 'number', 'created', 'updated', 'state', 'body', 'labels'],
 };
 
 export default settingsOptions;
