@@ -48,6 +48,15 @@ body {
   overflow: hidden;
 }
 
+.notice {
+  text-align: right;
+  width: 100%;
+  clear: both;
+  float: none;
+  color: #AAA;
+  padding-top: 1em;
+}
+
 @media (min-width: 600px) {
   .paper-item {
     width: 50%;

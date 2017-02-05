@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const dateFormats = ['MM/DD/YYYY', 'DD/MM/YYYY', 'MMMM Do YYYY'];
+export const dateFormats = ['MM/DD/YYYY', 'DD/MM/YYYY', 'MMMM Do YYYY'];
 
 const settingsOptions = {
   dateFormat: dateFormats.map(format => ({

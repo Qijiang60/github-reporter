@@ -21,6 +21,7 @@ export const SelectInput = ({ input, label, meta, children, ...rest }) => (
     {...input}
     onChange={(event, index, value) => input.onChange(value)}
     children={children}
+    errorText={meta.error}
     {...rest}
   />
 );
