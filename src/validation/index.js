@@ -1,10 +1,10 @@
 import settingsOptions, { dateFormats } from '../components/settings/settingsOptions';
 
-const validateSelect = (options, errorMessage) => value => {
+const validateSelect = (options, label) => value => {
   let error;
   const isValidValue = options.find(format => format === value);
   if (!isValidValue) {
-    error = errorMessage;
+    error = `${label} is required.`;
   }
   return error;
 };
@@ -12,20 +12,20 @@ const validateSelect = (options, errorMessage) => value => {
 const normalizeSelect = validator => (value, previousValue) =>
   validator(value) ? previousValue : value;
 
-export const validateDateFormat = validateSelect(dateFormats, 'Date format is required.');
+export const validateDateFormat = validateSelect(dateFormats, 'Date format');
 
 export const normalizeDateFormat = normalizeSelect(validateDateFormat);
 
 export const validateQueryState = validateSelect(
   settingsOptions.query.state,
-  'Issue state is required'
+  'Issue state'
 );
 
 export const normalizeQueryState = normalizeSelect(validateQueryState);
 
 export const validateTimeUnit = validateSelect(
   settingsOptions.query.since.unit,
-  'Unit of time is required'
+  'Unit of time'
 );
 
 export const normalizeTimeUnit = normalizeSelect(validateTimeUnit);
