@@ -15,6 +15,7 @@ const settingsOptions = {
   query: {
     state: ['open', 'closed', 'all'],
     since: {
+      quantity: ([...Array(37).keys()]).filter(n => n !== 0),
       unit: ['days', 'weeks', 'months', 'years'],
     },
   },

@@ -4,7 +4,8 @@ import SelectField from 'material-ui/SelectField';
 import Checkbox from 'material-ui/Checkbox'
 import MenuItem from 'material-ui/MenuItem';
 
-const capitalize = str => `${str.charAt(0).toLocaleUpperCase()}${str.slice(1)}`;
+const capitalize = str => 
+  typeof str === 'string' ? `${str.charAt(0).toLocaleUpperCase()}${str.slice(1)}` : str;
 
 export const TextInput = ({ input, label, meta, ...rest }) => (
   <TextField
@@ -36,9 +37,9 @@ export const CheckboxInput = ({ input, label, meta, ...rest }) => (
 );
 
 export const selectOptions = options => options.map((option, index) => {
-  const isStringOption = typeof option === 'string';
-  const value = isStringOption ? option : option.value;
-  const label = isStringOption ? capitalize(option) : option.label;
+  const isOptionObject = !!option.value;
+  const value = isOptionObject ? option.value : option;
+  const label = isOptionObject ? option.label : capitalize(option);
   return <MenuItem value={value} primaryText={label} key={index} />;
 });
   

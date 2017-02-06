@@ -23,6 +23,11 @@ export const validateQueryState = validateSelect(
 
 export const normalizeQueryState = normalizeSelect(validateQueryState);
 
+export const validateTimeQty = validateSelect(
+  settingsOptions.query.since.quantity,
+  'Amount of time'
+);
+
 export const validateTimeUnit = validateSelect(
   settingsOptions.query.since.unit,
   'Unit of time'

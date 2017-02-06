@@ -7,7 +7,7 @@ import { SelectInput, selectOptions, TextInput } from './Inputs';
 import FieldOptions from './FieldOptions';
 import settingsOptions from './settingsOptions';
 import { validateDateFormat, normalizeDateFormat, validateQueryState, normalizeQueryState,
-  validateTimeUnit, normalizeTimeUnit } from '../../validation';
+  validateTimeQty, validateTimeUnit, normalizeTimeUnit } from '../../validation';
 
 const leaveBlank = property => `leave blank for all ${property}s`;
 
@@ -46,10 +46,13 @@ const Settings = ({ exportSettings }) => {
           <div className="half-width">
             <Field
               name="query.since.quantity"
-              component={TextInput}
+              component={SelectInput}
               label="Going back..."
               fullWidth
-            />
+              validate={validateTimeQty}
+            >
+              {selectOptions(settingsOptions.query.since.quantity)}
+            </Field>
           </div>
           <div className="half-width">
             <Field
@@ -87,7 +90,7 @@ const Settings = ({ exportSettings }) => {
             type="submit"
             label="Save Changes"
             primary
-            disabled={pristine || !valid}
+            disabled={pristine || !valid || submitting}
             style={{ float: 'right', marginTop: '1em', clear: 'right' }}
           />
           {!pristine && <div className="notice">
