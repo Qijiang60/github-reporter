@@ -31,7 +31,7 @@ const authorizeUser = cb => (req, res) => {
     if (error || response.statusCode !== 200) {
       sendError({ res, error });
     }
-    if (req.body.githubId !== githubResponse.id) {
+    if (req.params.githubId !== githubResponse.id) {
       return sendError({ res, status: 401, message: 'You are not authorized to perform this action'});
     }
     return cb(req, res);

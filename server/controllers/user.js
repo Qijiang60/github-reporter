@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const { sendJsonResponse, authorizeUser } = require('./util');
 
 const updateOptions = {
   new: true,
@@ -19,6 +20,12 @@ const getUser = (githubId, cb, update) => {
   });
 };
 
+const updateSettings = (req, res) => {
+  const sendUpdated = user => sendJsonResponse({ res, status: 200, content: { user } });
+  getUser(req.params.githubId, sendUpdated, { exportSettings: req.body });
+};
+
 module.exports = {
   getUser,
+  updateSettings: authorizeUser(updateSettings),
 };

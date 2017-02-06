@@ -4,7 +4,7 @@ const defaultSettings = {
     state: 'open',
     since: {
       quantity: 1,
-      unit: 'year',
+      unit: 'years',
     },
     assignee: null,
     labels: null,

@@ -3,6 +3,7 @@ const router = express.Router();
 const { githubAuthRedirect, githubCallback } = require('../controllers/githubAuth');
 const { apiRequest, getGithubUser } = require('../controllers/github');
 const { exportIssues } = require('../controllers/export');
+const { updateSettings } = require('../controllers/user');
 
 /* Github Authorizaton Routes */
 
@@ -13,6 +14,9 @@ router.get('/gh_callback', githubCallback);
 
 router.get('/github/user', getGithubUser);
 router.get('/github/*', apiRequest);
+
+/* User routes */
+router.put('/user/:githubId/exportSettings', updateSettings);
 
 /* Export Routes */
 
