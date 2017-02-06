@@ -1,4 +1,5 @@
-import { getUserRequest, getReposRequest } from '../api/session';
+import selectN from 'selectn';
+import { getUserRequest, getReposRequest, updateSettingsRequest } from '../api/session';
 import { getRequest } from '../api/util';
 import { auth } from './util';
 
@@ -6,6 +7,7 @@ export const SET_TOKEN = 'SET_TOKEN';
 export const GET_USER = 'GET_USER';
 export const GET_REPOS = 'GET_REPOS';
 export const GET_ISSUES = 'GET_ISSUES';
+export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 export const LOUGOUT = 'LOGOUT';
 
 const isValidResponse = response => response && Array.isArray(response) && response.length > 0;
@@ -64,6 +66,15 @@ export const getRepos = () => (dispatch, getState) => {
       }),
   });
 };
+
+export const updateSettings = payload => (dispatch, getState) => {
+  const githubId = selectN('session.user.id', getState());
+  const options = auth(getState());
+  dispatch({
+    type: UPDATE_SETTINGS,
+    promise: updateSettingsRequest(payload, options, githubId),
+  })
+}
 
 export const logout = () => dispatch => {
   localStorage.clear();

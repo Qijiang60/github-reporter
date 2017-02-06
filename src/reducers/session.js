@@ -1,4 +1,4 @@
-import { SET_TOKEN, GET_USER, GET_REPOS } from '../actions/session';
+import { SET_TOKEN, GET_USER, GET_REPOS, UPDATE_SETTINGS } from '../actions/session';
 
 const session = (state = {}, { type, payload, status, result }) => {
   if (type === SET_TOKEN) {
@@ -18,6 +18,15 @@ const session = (state = {}, { type, payload, status, result }) => {
       return {
         ...state,
         repos: result,
+      };
+    }
+    if (type === UPDATE_SETTINGS) {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          local: result.user,
+        },
       };
     }
   }

@@ -5,9 +5,9 @@ const sendJsonResponse = ({ res, status, content }) => {
   res.json(content);
 };
 
-const sendError = ({ res, error, message, status = 400 }) => {
+const sendError = ({ res, error, message, meta, status = 400 }) => {
   res.status(status);
-  res.json({ error, message });
+  res.json({ error, message, meta });
 }
 
 const githubHeaders = ({ req, token }) => ({
@@ -24,14 +24,19 @@ const githubApi = path => `https://api.github.com/${path}`;
 // verify the logged in GitHub account matches the local account
 // would probably be good to middleware-ize this
 const authorizeUser = cb => (req, res) => {
-  request({
-    uri: `${githubApi}user`,
+  const requestOptions = {
+    uri: githubApi('user'),
     headers: githubHeaders({ req }),
-  }, (error, response, githubResponse) => {
+  };
+  request(requestOptions, (error, response, githubResponse) => {
     if (error || response.statusCode !== 200) {
-      sendError({ res, error });
+      return sendError({ res, error, status: 400, message: 'Error getting data from GitHub', });
     }
-    if (req.params.githubId !== githubResponse.id) {
+    if (!githubResponse) {
+      return sendError({ res, message: 'No response from GitHub', status: 400 });
+    }
+    const body = JSON.parse(githubResponse);
+    if (parseInt(req.params.githubId, 10) !== parseInt(body.id, 10)) {
       return sendError({ res, status: 401, message: 'You are not authorized to perform this action'});
     }
     return cb(req, res);

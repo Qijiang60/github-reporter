@@ -8,10 +8,11 @@ import FieldOptions from './FieldOptions';
 import settingsOptions from './settingsOptions';
 import { validateDateFormat, normalizeDateFormat, validateQueryState, normalizeQueryState,
   validateTimeQty, validateTimeUnit, normalizeTimeUnit } from '../../validation';
+import { updateSettings } from '../../actions/session';
 
 const leaveBlank = property => `leave blank for all ${property}s`;
 
-const Settings = ({ exportSettings }) => {
+const Settings = ({ exportSettings, update }) => {
   const SettingsForm = ({ handleSubmit, pristine, valid, reset, submitting }) => (
     <div style={{ paddingTop: '1em', paddingLeft: '1em', paddingRight: '1em' }}>
       <h1>Export Settings</h1>
@@ -102,7 +103,7 @@ const Settings = ({ exportSettings }) => {
   const ConnectedSettingsForm = reduxForm({
     form: 'settings',
     initialValues: exportSettings,
-    onSubmit: data => { console.warn('submission data', data); }
+    onSubmit: update,
   })(SettingsForm);
   return <ConnectedSettingsForm />;
 };
@@ -111,4 +112,4 @@ const mapStateToProps = ({ session }) => ({
   exportSettings: selectN('user.local.exportSettings', session),
 });
 
-export default connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps, { update: updateSettings })(Settings);
