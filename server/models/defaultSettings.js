@@ -7,7 +7,7 @@ const defaultSettings = {
       unit: 'years',
     },
     assignee: null,
-    labels: null,
+    labels: [],
   },
   fields: [{
     name: 'title',

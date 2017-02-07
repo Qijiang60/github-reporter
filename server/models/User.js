@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
         unit: { type: String, default: defaultSettings.query.since.unit },
       },
       assignee: String,
-      labels: String,
+      labels: [String],
     },
     fields: { type: Array, default: defaultSettings.fields },
   },

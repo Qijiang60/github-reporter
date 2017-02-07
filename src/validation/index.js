@@ -34,3 +34,7 @@ export const validateTimeUnit = validateSelect(
 );
 
 export const normalizeTimeUnit = normalizeSelect(validateTimeUnit);
+
+export const formatLabels = (labels = []) => labels.join(',');
+
+export const normalizeLabels = (labels = '') => labels.split(',');

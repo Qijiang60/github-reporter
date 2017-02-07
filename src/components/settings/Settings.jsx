@@ -7,7 +7,8 @@ import { SelectInput, selectOptions, TextInput } from './Inputs';
 import FieldOptions from './FieldOptions';
 import settingsOptions from './settingsOptions';
 import { validateDateFormat, normalizeDateFormat, validateQueryState, normalizeQueryState,
-  validateTimeQty, validateTimeUnit, normalizeTimeUnit } from '../../validation';
+  validateTimeQty, validateTimeUnit, normalizeTimeUnit, formatLabels, normalizeLabels }
+  from '../../validation';
 import { updateSettings } from '../../actions/session';
 
 const leaveBlank = property => `leave blank for all ${property}s`;
@@ -83,6 +84,8 @@ const Settings = ({ exportSettings, update }) => {
               component={TextInput}
               label={`Labels (comma separated, ${leaveBlank('label')})`}
               fullWidth
+              format={formatLabels}
+              normalize={normalizeLabels}
             />
           </div>
         </div>

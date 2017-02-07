@@ -11,10 +11,9 @@ const { githubHeaders } = require('./util');
 const onlyEnabled = fields => fields.filter(({ enabled }) => enabled);
 
 const issuesQuery = ({ state, labels = [], since = {} }) => qs.stringify({
-  filter: 'all',
   state,
-  labels: labels.join(','),
   since: moment().subtract(since.quantity, since.unit).format(),
+  labels: labels.join(','),
 });
 
 const mapIssues = (user, issues = []) => {
