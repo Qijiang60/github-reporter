@@ -12,8 +12,8 @@ const objectify = (str = '') => str.split(',').reduce((acc, item) => ({
 class Token extends Component {
 
   componentDidMount() {
-    const token = selectN('params.token', this.props);
-    const scope = selectN('params.scope', this.props);
+    const token = selectN('match.params.token', this.props);
+    const scope = selectN('match.params.scope', this.props);
     if (token && scope) {
       this.props.setToken({ token, permissions: objectify(scope) });
     }
