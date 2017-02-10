@@ -15,7 +15,7 @@ const leaveBlank = property => `leave blank for all ${property}s`;
 
 const Settings = ({ exportSettings, update }) => {
   const SettingsForm = ({ handleSubmit, pristine, valid, reset, submitting }) => (
-    <div style={{ paddingTop: '1em', paddingLeft: '1em', paddingRight: '1em' }}>
+    <div className="form-container">
       <h1>
         Export Settings<br />
         <small className="small">

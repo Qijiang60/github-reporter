@@ -18,9 +18,10 @@ Log in with your GitHub account and click on a repo to export its issues to CSV.
  - `GH_CLIENT_ID`: GitHub Application Client ID. Obtained in GitHub settings -> Developer Settings -> OAuth applications
  - `GH_CLIENT_SECRET`: GitHub Application Client Secret. Obtained in GitHub settings -> Developer Settings -> OAuth applications
  - `GH_REDIRECT_URI`: GitHub Application Redirect URI. This is set in the application settings.
-   - This should be in the format {API_ROOT}/api/gh_callback =http://localhost:5005/api/gh_callback
+   - This should be in the format `{API_ROOT}/api/gh_callback`
    - E.g. `http://localhost:5005/api/gh_callback` or  
      `http://your-cool-dev-domain/api/gh_callback`
+   - This URL must match the URL in the GitHub OAuth appilcation settings exactly. [More on that here.](https://developer.github.com/v3/oauth/#redirect-urls)
 
 #### Optional
  - `CLIENT_ROOT`: Should only be needed in development. Defaults to `''` (empty string)
