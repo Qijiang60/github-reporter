@@ -6,13 +6,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Routes from './components/containers/Routes';
 import store from './store/';
+import theme from './styles/theme';
 import './styles/index.css';
 import './styles/fonts/index.css';
 
 injectTapEventPlugin();
 
 const App = () => (
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={theme}>
     <Provider store={store()}>
       <BrowserRouter>
         <Routes />
