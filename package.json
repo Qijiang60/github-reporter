@@ -38,8 +38,8 @@
   },
   "proxy": "http://localhost:5005",
   "engines:": {
-    "node": "6",
-    "npm": "3"
+    "node": "6.9.5",
+    "npm": "3.10.10"
   },
   "eslintConfig": {
     "extends": "react-app"
