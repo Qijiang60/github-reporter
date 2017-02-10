@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Redirect from 'react-router-dom/Redirect';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Navigation from '../navigation/Navigation';
 import { loggedInSelector } from '../../selectors/session';
 import { loadLocalToken } from '../../actions/session';
@@ -30,13 +31,15 @@ class Auth extends Component {
           <Card className="explanation">
             <CardHeader
               title="Connect Your GitHub Account"
-              subtitle="Authorize Github Reporter so we can start creating your reports"
+              subtitle="Log in with your GitHub account, then click on a repo to export its issues to CSV."
               avatar={githubLogo}
               style={{ backgroundColor: '#FAFAFA' }}
             />
             <CardText>
               <p>{authExplanation}</p>
               <p>{authAssurance}</p>
+              <p>Don't believe it?</p>
+              <FlatButton href="https://github.com/andy-j-d/github-reporter" label="View Source" />
             </CardText>
           </Card>
           <RaisedButton
