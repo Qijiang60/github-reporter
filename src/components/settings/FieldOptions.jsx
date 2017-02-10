@@ -25,13 +25,13 @@ const FieldOptions = () => (
     </TableHeader>
     <TableBody>
       {settingsOptions.fields.map((fieldName, index) =>
-            <FieldOption fieldName={fieldName} index={index} />)}
+            <FieldOption fieldName={fieldName} index={index} key={index} />)}
     </TableBody>
   </Table>
 );
 
 const FieldOption = ({ fieldName, index }) => (
-  <TableRow key={index}>
+  <TableRow>
     <TableRowColumn style={checkboxStyle} >
       <Field name={`fields[${index}].enabled`} component={CheckboxInput}/>
     </TableRowColumn>
