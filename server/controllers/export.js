@@ -27,6 +27,7 @@ const mapIssues = (user, issues = []) => {
   return issues.map(issue => Object.assign({}, issue, {
     created: formatDate(issue.created_at),
     updated: formatDate(issue.updated_at),
+    closed: issue.closed_at ? formatDate(issue.closed_at) : '',
     body: truncateBody ? issue.body.split('\r')[0] : issue.body,
     labels: issue.labels.map(label => label.name).join(', '),
   }));

@@ -19,12 +19,17 @@ const defaultSettings = {
     enabled: true,
   }, {
     name: 'created',
-    label: 'Created',
+    label: 'Date Created',
     type: 'date',
     enabled: true,
   }, {
     name: 'updated',
     label: 'Last Updated',
+    type: 'date',
+    enabled: true,
+  }, {
+    name: 'closed',
+    label: 'Date Closed',
     type: 'date',
     enabled: true,
   }, {
@@ -39,6 +44,10 @@ const defaultSettings = {
   }, {
     name: 'labels',
     label: 'Labels',
+    enabled: true,
+  }, {
+    name: 'html_url',
+    label: 'Link',
     enabled: true,
   }],
 };

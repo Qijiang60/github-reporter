@@ -19,7 +19,7 @@ const settingsOptions = {
       unit: ['days', 'weeks', 'months', 'years'],
     },
   },
-  fields: ['title', 'number', 'created', 'updated', 'state', 'body', 'labels'],
+  fields: ['title', 'number', 'created', 'updated', 'closed', 'state', 'body', 'labels', 'html_url'],
 };
 
 export default settingsOptions;
