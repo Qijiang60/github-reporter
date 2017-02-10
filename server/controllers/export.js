@@ -10,11 +10,15 @@ const { githubHeaders } = require('./util');
 
 const onlyEnabled = fields => fields.filter(({ enabled }) => enabled);
 
-const issuesQuery = ({ state, labels = [], since = {} }) => qs.stringify({
-  state,
-  since: moment().subtract(since.quantity, since.unit).format(),
-  labels: labels.join(','),
-});
+const issuesQuery = ({ state, labels = [], since = {}, assignee }) => {
+  const query = {
+    state,
+    since: moment().subtract(since.quantity, since.unit).format(),
+  };
+  if (labels.length > 0) { query.labels = labels.join(','); }
+  if (assignee) { query.assignee = assignee; }
+  return qs.stringify(query);
+};
 
 const mapIssues = (user, issues = []) => {
   const { dateFormat, fields } = user.exportSettings;
