@@ -19,7 +19,8 @@ const repositories = compose(renderRepos, sortByIssues, mergeIssues);
 const Repos = ({ repos = [], issues = [] }) => (
   <div>
     <h1 style={{ paddingLeft: '0.5em', paddingRight: '0.5em' }}>
-      Respositories <small style={{ color: '#AAA' }}>Click to export issues to CSV</small>
+      Respositories <br />
+      <small className="small">Click a repository to export issues to CSV</small>
     </h1>
     <List>
       {repositories(repos, issues)}

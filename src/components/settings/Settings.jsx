@@ -16,7 +16,12 @@ const leaveBlank = property => `leave blank for all ${property}s`;
 const Settings = ({ exportSettings, update }) => {
   const SettingsForm = ({ handleSubmit, pristine, valid, reset, submitting }) => (
     <div style={{ paddingTop: '1em', paddingLeft: '1em', paddingRight: '1em' }}>
-      <h1>Export Settings</h1>
+      <h1>
+        Export Settings<br />
+        <small className="small">
+          Note that only issues matching <em>all</em> specified labels will be returned.<br />
+        </small>
+      </h1>
       <form onSubmit={handleSubmit}>
         <div className="two-column-row">
           <div className="half-width">
