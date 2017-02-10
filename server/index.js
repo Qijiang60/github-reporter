@@ -17,7 +17,7 @@ app.disable('x-powered-by');
 // define routes and assets
 app.use('/static', express.static(path.join(process.cwd(), '/build/static')));
 app.use('/api', require('./routes'));
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(process.cwd(), '/build/index.html'));
 });
 
