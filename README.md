@@ -2,8 +2,20 @@
 
 ## Export GitHub issues to a configurable CSV
 
-Log in with your GitHub account and click on a repo to export its issues to CSV.
+Log in with your GitHub account and click on a repo to export its issues to CSV.  
 
+Customize date format, search filters, column headings and more.
+
+## Major Dependencies
+
+ - [GitHub API](https://developer.github.com/v3/)
+ - [json-csv](https://github.com/IWSLLC/json-csv)
+ - [ReactJS](https://facebook.github.io/react/)
+ - [Node.js](https://nodejs.org/en/)
+ - [Create React App](https://github.com/facebookincubator/create-react-app) 
+ - [Redux](http://redux.js.org/) 
+ - [Redux Form](http://redux-form.com/)
+ - [Material UI](http://www.material-ui.com/#/)  
 
 ## Run Locally/Contribute
 
