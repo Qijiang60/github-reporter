@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import selectN from 'selectn';
-import RaisedButton from 'material-ui/RaisedButton';
-import { SelectInput, selectOptions, TextInput } from './Inputs';
+import { SelectInput, selectOptions, TextInput, DirtyNotice, SavedNotice, SubmitButton } from './Inputs';
 import FieldOptions from './FieldOptions';
 import settingsOptions from './settingsOptions';
 import { validateDateFormat, normalizeDateFormat, validateQueryState, normalizeQueryState,
@@ -14,7 +13,7 @@ import { updateSettings } from '../../actions/session';
 const leaveBlank = property => `leave blank for all ${property}s`;
 
 const Settings = ({ exportSettings, update }) => {
-  const SettingsForm = ({ handleSubmit, pristine, valid, reset, submitting }) => (
+  const SettingsForm = ({ handleSubmit, pristine, valid, reset, submitting, submitSucceeded }) => (
     <div className="form-container">
       <h1>
         Export Settings<br />
@@ -95,16 +94,9 @@ const Settings = ({ exportSettings, update }) => {
           </div>
         </div>
         <FieldOptions />
-        <RaisedButton
-            type="submit"
-            label="Save Changes"
-            primary
-            disabled={pristine || !valid || submitting}
-            style={{ float: 'right', marginTop: '1em', clear: 'right' }}
-          />
-          {!pristine && <div className="notice">
-            Your changes will not apply to exports until they're saved.
-          </div>}
+        <SubmitButton disabled={pristine || !valid || submitting} />
+        <DirtyNotice open={!pristine && !submitting} action={handleSubmit} />
+        <SavedNotice open={pristine && submitSucceeded} />
       </form>
     </div>
   );
