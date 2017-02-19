@@ -112,6 +112,7 @@ const Settings = ({ exportSettings, update }) => {
     form: 'settings',
     initialValues: exportSettings,
     onSubmit: update,
+    destroyOnUnmount: false,
   })(SettingsForm);
   return <ConnectedSettingsForm />;
 };
