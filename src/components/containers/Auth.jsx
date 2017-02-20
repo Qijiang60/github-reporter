@@ -9,6 +9,7 @@ import { loggedInSelector } from '../../selectors/session';
 import { loadLocalToken } from '../../actions/session';
 import githubLogo from '../../images/github-logo-64.png'
 
+const details = 'Customize date format, search filters, column headings and more.'
 const authExplanation = "You'll need to connect your GitHub account so we can access your repositories and generate your reports."
 const authAssurance = "We'll never use your GitHub account information for anything other than saving your GitHub Reporter settings and exporting GitHub data at your request."
 
@@ -36,9 +37,9 @@ class Auth extends Component {
               style={{ backgroundColor: '#FAFAFA' }}
             />
             <CardText>
+              <p>{details}</p>
               <p>{authExplanation}</p>
               <p>{authAssurance}</p>
-              <p>Don't believe it?</p>
               <FlatButton href="https://github.com/andy-j-d/github-reporter" label="View Source" />
             </CardText>
           </Card>
