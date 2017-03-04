@@ -35,8 +35,8 @@ const Repos = ({ repos = [], issues = {}, filterText }) => (
       Respositories <br />
       <small className="small">Click a repository to export issues to CSV</small>
     </h1>
-    <Search repos={repos} />
     <List>
+      <Search repos={repos} />
       {repositories(filterText, issues)(repos)}
     </List>
   </div>
