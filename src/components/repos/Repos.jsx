@@ -7,8 +7,10 @@ import { List } from 'material-ui/List';
 import Repo from './Repo';
 import Search from './Search';
 
-const filterRepos = filterText => repos => filterText ? repos.filter(({ name = '' } = {}) =>
-  name.toLocaleLowerCase().indexOf(filterText) !== -1) : repos;
+const filterRepos = filterText => repos => filterText ?
+  repos.filter(({ name = '' } = {}) =>
+    (name.toLocaleLowerCase().indexOf(filterText) !== -1 || name === filterText))
+  : repos;
 
 const mergeIssues = issues => repos => repos.map(repo => ({
   ...repo,
@@ -27,7 +29,7 @@ const repositories = (filterText, issues) => compose(
   filterRepos(filterText)
 );
 
-const Repos = ({ repos = [], issues = [], filterText }) => (
+const Repos = ({ repos = [], issues = {}, filterText }) => (
   <div>
     <h1 style={{ paddingLeft: '0.5em', paddingRight: '0.5em' }}>
       Respositories <br />
