@@ -20,7 +20,7 @@ Customize date format, search filters, column headings and more.
 ## Run Locally/Contribute
 
  - Clone this respository
- - Make sure you're running at least Node 6.x and NPM 3.x
+ - Make sure you're running at least Node 7.x and NPM 3.x
  - Easily run multiple node versions using [nvm](https://github.com/creationix/nvm/blob/master/README.markdown)
  - run `npm isntall`, or if you have [yarn](https://code.facebook.com/posts/1840075619545360) installed locally, run `yarn`
 
