@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import SelectField from 'material-ui/SelectField';
 import Checkbox from 'material-ui/Checkbox'
 import MenuItem from 'material-ui/MenuItem';
@@ -17,6 +18,17 @@ export const TextInput = ({ input, label, meta, ...rest }) => (
     {...rest}
   />
 );
+
+export const AutoCompleteInput = ({ input, label, meta, ...rest }) => (
+  <AutoComplete
+    hintText={label}
+    searchText={input.value}
+    onUpdateInput={input.onChange}
+    {...rest}
+  />
+);
+
+export const searchFilter = AutoComplete.caseInsensitiveFilter;
 
 export const SelectInput = ({ input, label, meta, children, ...rest }) => (
   <SelectField
